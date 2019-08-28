@@ -1,3 +1,5 @@
+ru\job4j\calculator\Git.class
+ru\job4j\condition\DummyBot.class
 ru\job4j\calculator\Fit.class
 ru\job4j\Main.class
 StudentInfo.class
@@ -5,5 +7,6 @@ ru\job4j\Info.class
 Multiple.class
 ru\job4j\calculator\Calculator.class
 ru\job4j\condition\SqArea.class
+ru\job4j\condition\MyBot.class
 ru\job4j\condition\Point.class
 ru\job4j\converter\Converter.class
