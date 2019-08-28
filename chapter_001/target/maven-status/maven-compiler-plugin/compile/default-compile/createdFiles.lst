@@ -7,6 +7,7 @@ Multiple.class
 ru\job4j\calculator\Calculator.class
 ru\job4j\condition\MultiMax.class
 ru\job4j\Main.class
+ru\job4j\condition\SqMax.class
 StudentInfo.class
 ru\job4j\Info.class
 ru\job4j\condition\SqArea.class

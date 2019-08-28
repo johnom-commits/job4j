@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="3" failures="1" name="ru.job4j.condition.DummyBotTest" time="0.002" errors="0" skipped="0">
+<testsuite tests="3" failures="1" name="ru.job4j.condition.DummyBotTest" time="0.001" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="java.vm.version" value="12.0.2+10"/>
@@ -63,7 +63,7 @@
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
   <testcase classname="ru.job4j.condition.DummyBotTest" name="whenUnknownBot" time="0"/>
-  <testcase classname="ru.job4j.condition.DummyBotTest" name="whenByeBot" time="0.002">
+  <testcase classname="ru.job4j.condition.DummyBotTest" name="whenByeBot" time="0.001">
     <failure message="
 Expected: is &quot;До скорой встречи.&quot;
      but: was &quot;Это ставит меня в тупик. Задайте другой вопрос.&quot;" type="java.lang.AssertionError">java.lang.AssertionError: 
