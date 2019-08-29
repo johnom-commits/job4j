@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: ru.job4j.condition.DummyBotTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.001 sec <<< FAILURE!
-whenByeBot(ru.job4j.condition.DummyBotTest)  Time elapsed: 0.001 sec  <<< FAILURE!
+Tests run: 3, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.003 sec <<< FAILURE!
+whenByeBot(ru.job4j.condition.DummyBotTest)  Time elapsed: 0.002 sec  <<< FAILURE!
 java.lang.AssertionError: 
 Expected: is "До скорой встречи."
      but: was "Это ставит меня в тупик. Задайте другой вопрос."
