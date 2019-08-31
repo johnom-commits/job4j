@@ -27,7 +27,7 @@ public class FindLoop {
         int temp = 0;
 //      В первом цикле делаем перестановку в массиве
         for (int j = 0; j < data.length; j++) {
-//          Во втором цикле ицщем индекс минимального значения в массиве 
+//          Во втором цикле ицщем индекс минимального значения в массиве
             int min = data[j];
             for (int i = j; i < data.length; i++) {
                 if (data[i] < min) {
