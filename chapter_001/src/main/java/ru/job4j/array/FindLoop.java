@@ -22,4 +22,23 @@ public class FindLoop {
         }
         return rst;
     }
+
+    public int[] sort(int[] data) {
+        int temp = 0;
+//      В первом цикле делаем перестановку в массиве
+        for (int j = 0; j < data.length; j++) {
+//          Во втором цикле ицщем индекс минимального значения в массиве 
+            int min = data[j];
+            for (int i = j; i < data.length; i++) {
+                if (data[i] < min) {
+                    min = data[i];
+                }
+            }
+            int indexMin = indexOf(data, min, j, data.length);
+            temp = data[j];
+            data[j] = data[indexMin];
+            data[indexMin] = temp;
+        }
+        return data;
+    }
 }
