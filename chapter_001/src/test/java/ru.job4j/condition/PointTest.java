@@ -6,7 +6,7 @@ import org.junit.Test;
 public class PointTest {
 
     @Test
-    public void distance1(){
+    public void distance1() {
         int x1 = 0;
         int y1 = 0;
         int x2 = 2;
@@ -17,7 +17,7 @@ public class PointTest {
     }
 
     @Test
-    public void distance2(){
+    public void distance2() {
         int x1 = 2;
         int y1 = 1;
         int x2 = 4;
@@ -28,7 +28,7 @@ public class PointTest {
     }
 
     @Test
-    public void distance3(){
+    public void distance3() {
         int x1 = 1;
         int y1 = 2;
         int x2 = 9;

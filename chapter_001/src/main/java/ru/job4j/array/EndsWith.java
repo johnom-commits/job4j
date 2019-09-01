@@ -12,7 +12,7 @@ public class EndsWith {
         char[] wrd = word.toCharArray();
         int dif = wrd.length - pst.length;
 
-        for (int i = pst.length-1; i >= 0; i--){
+        for (int i = pst.length - 1; i >= 0; i--) {
             if (pst[i] != wrd[i + dif]) {
                 result = false;
                 break;
