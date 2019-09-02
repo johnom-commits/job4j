@@ -11,6 +11,7 @@ public class MatrixCheck {
         for (int i = 0; i <= length; i++) {
             if (flag != data[i][i] || flag2 != data[length - i][i]) {
                 result = false;
+                break;
             }
         }
         return result;

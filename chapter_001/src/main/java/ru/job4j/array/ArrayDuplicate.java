@@ -15,6 +15,7 @@ public class ArrayDuplicate {
                     array[length - 1] = array[j];
                     array[j] = temp;
                     length--;
+                    j--;
                 }
             }
         }
