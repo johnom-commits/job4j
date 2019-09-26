@@ -6,7 +6,6 @@ public class ArrayDuplicate {
     public String[] remove(String[] array) {
         int length = array.length;
         String temp, word;
-
         for (int i = 0; i < length; i++) {
             word = array[i];
             for (int j = i + 1; j < length; j++) {

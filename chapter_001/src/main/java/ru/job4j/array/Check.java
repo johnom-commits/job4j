@@ -8,7 +8,6 @@ public class Check {
             if (i == 0) {
                 flag = data[i];
             } else
-//                Если флаг сменился хотя бы раз, то возвращаем Ложь и выходим из цикла, дальше можно не проверять
                 if (data[i] != flag) {
                     result = false;
                     break;
