@@ -52,16 +52,17 @@ public class Tracker {
     }
 
     public boolean replace(String id, Item item) {
-        Item previous = this.findById(id);
-        if (previous != null) {
-            String tmpName = previous.getName();
-            String tmpId = previous.getId();
-            previous.setName(item.getName());
-            previous.setId(item.getId());
-            item.setName(tmpName);
-            item.setId(tmpId);
-            return tmpName.equals(item.getName());
-        } else return false;
+        Item tmp = null;
+        for (int i = 0; i < position; i++) {
+            if (items[i] != null && items[i].getId().equals(id)) {
+                tmp = items[i];
+                items[i] = item;
+                item = tmp;
+                break;
+            }
+        }
+        if (tmp == null) return false;
+        else return true;
     }
 
     public boolean delete(String id) {
