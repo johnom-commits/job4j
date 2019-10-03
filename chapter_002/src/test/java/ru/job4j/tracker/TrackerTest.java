@@ -74,4 +74,19 @@ public class TrackerTest {
         Item[] copy = tracker.findAll();
         assertThat(copy.length, is(2));
     }
+    @Test
+    public void testDeleteFirstItem() {
+        Tracker tracker = new Tracker();
+        Item first = new Item("test1");
+        tracker.add(first);
+        Item second = new Item("test2");
+        tracker.add(second);
+        Item third = new Item("test3");
+        tracker.add(third);
+        Item forth = new Item("test4");
+        tracker.add(forth);
+        tracker.delete(first.getId());
+        Item[] copy = tracker.findAll();
+        assertThat(copy.length, is(3));
+    }
 }

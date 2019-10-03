@@ -22,9 +22,9 @@ public class Tracker {
 
     public Item findById(String id) {
         Item tmp = null;
-        for (Item item : items) {
-            if (item.getId().equals(id)) {
-                tmp = item;
+        for (int i = 0; i < position; i++) {
+            if (items[i] != null && items[i].getId().equals(id)) {
+                tmp = items[i];
                 break;
             }
         }
@@ -34,9 +34,9 @@ public class Tracker {
     public Item[] findByName(String key) {
         Item[] array = new Item[position];
         int index = 0;
-        for (Item item : items) {
-            if (item != null && item.getName().equals(key)) {
-                array[index] = item;
+        for (int i = 0; i < position; i++) {
+            if (items[i] != null && items[i].getName().equals(key)) {
+                array[index] = items[i];
                 index++;
             }
         }
@@ -54,25 +54,36 @@ public class Tracker {
     public boolean replace(String id, Item item) {
         Item previous = this.findById(id);
         if (previous != null) {
-            String tmp = previous.getName();
+            String tmpName = previous.getName();
+            String tmpId = previous.getId();
             previous.setName(item.getName());
-            item.setName(tmp);
-            return tmp.equals(item.getName());
+            previous.setId(item.getId());
+            item.setName(tmpName);
+            item.setId(tmpId);
+            return tmpName.equals(item.getName());
         } else return false;
     }
 
     public boolean delete(String id) {
         int index = 0;
+        boolean find = false;
         for (int i = 0; i < position; i++) {
             if (items[i] != null && items[i].getId().equals(id)) {
                 index = i;
+                find = true;
+                break;
             }
         }
-        for (int i = index; i < (position - 1); i++) {
-            items[i] = items[i + 1];
-        }
-        if (index != 0) {
+        if (find) {
             position--;
+            Item[] array = new Item[100];
+            if (index == 0) {
+                System.arraycopy(items, 1, array, 0, position);
+            } else {
+                System.arraycopy(items, 0, array, 0, index - 1);
+                System.arraycopy(items, index + 1, array, index - 1, position - index);
+            }
+            System.arraycopy(array, 0, items, 0, 100);
             return true;
         } else return false;
     }
