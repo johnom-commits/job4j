@@ -29,11 +29,12 @@ public class StartUI {
             } else if (select == 2) {
                 System.out.println("Enter Id:");
                 String id = scanner.nextLine();
-                Item item = tracker.findById(id);
-                if (item != null) {
-                    System.out.println("Enter new name:");
-                    String name = scanner.nextLine();
-                    item.setName(name);
+                System.out.println("Enter new name:");
+                String name = scanner.nextLine();
+                Item item = new Item(name);
+                Boolean result = tracker.replace(id, item);
+                if (result) {
+                    System.out.println("Done!");
                 } else {
                     System.out.println("Item does not find");
                 }
