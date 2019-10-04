@@ -70,23 +70,13 @@ public class Tracker {
         boolean find = false;
         for (int i = 0; i < position; i++) {
             if (items[i] != null && items[i].getId().equals(id)) {
-                index = i;
+                System.arraycopy(items, i + 1, items, i, position - i);
+                position--;
                 find = true;
                 break;
             }
         }
-        if (find) {
-            position--;
-            Item[] array = new Item[100];
-            if (index == 0) {
-                System.arraycopy(items, 1, array, 0, position);
-            } else {
-                System.arraycopy(items, 0, array, 0, index - 1);
-                System.arraycopy(items, index + 1, array, index - 1, position - index);
-            }
-            System.arraycopy(array, 0, items, 0, 100);
-            return true;
-        } else return false;
+        return find;
     }
     /**
      * Метод генерирует уникальный ключ для заявки.
