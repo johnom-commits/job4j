@@ -55,9 +55,9 @@ public class Tracker {
         Item tmp = null;
         for (int i = 0; i < position; i++) {
             if (items[i] != null && items[i].getId().equals(id)) {
-                tmp = items[i];
+//                tmp = items[i];
                 items[i] = item;
-                item = tmp;
+//                item = tmp;
                 break;
             }
         }

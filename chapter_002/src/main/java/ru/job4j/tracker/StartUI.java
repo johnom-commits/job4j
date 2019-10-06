@@ -25,6 +25,7 @@ public class StartUI {
         String id = input.askStr("Enter Id:");
         String name = input.askStr("Enter new name:");
         Item item = new Item(name);
+        item.setId(id);
         Boolean result = tracker.replace(id, item);
         if (result) {
             System.out.println("Done!");
