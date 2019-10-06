@@ -7,7 +7,7 @@ public class Library {
         Book onegin = new Book("Evgeniy Onegin", 5);
         Book nerve = new Book("Nerve", 1);
 
-        Book books[] = new Book[4];
+        Book[] books = new Book[4];
         books[0] = clean;
         books[1] = java;
         books[2] = onegin;

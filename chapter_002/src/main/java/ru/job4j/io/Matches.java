@@ -12,7 +12,9 @@ public class Matches {
             counter++;
             if (counter % 2 == 0) {
                 player = "Второй игрок: ";
-            } else player = "Первый игрок: ";
+            } else {
+                player = "Первый игрок: ";
+            }
             System.out.println(player);
             int matches = Integer.valueOf(input.nextLine());
             if (matches < 1 || matches > 3 || matches > count) {

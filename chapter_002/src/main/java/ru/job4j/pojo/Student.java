@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Student {
     private String fullName;
-    private String Group;
+    private String group;
     private Date dateReceipt;
 
     public String getFullName() {
@@ -16,11 +16,11 @@ public class Student {
     }
 
     public String getGroup() {
-        return Group;
+        return group;
     }
 
     public void setGroup(String group) {
-        Group = group;
+        this.group = group;
     }
 
     public Date getDateReceipt() {

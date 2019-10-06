@@ -7,7 +7,7 @@ public class Profession {
     private String surname;
     private String education;
     private Date birthday;
-    private Boolean HasNobelPrize;
+    private Boolean hasNobelPrize;
 
     public String getName() {
         return name;
@@ -26,6 +26,6 @@ public class Profession {
     }
 
     public Boolean getHasNobelPrize() {
-        return HasNobelPrize;
+        return hasNobelPrize;
     }
 }
