@@ -19,7 +19,7 @@ public class DummyBotTest {
     public void whenByeBot() {
         DummyBot bot = new DummyBot();
         assertThat(
-                bot.answer("Пока."),
+                bot.answer("Пока"),
                 is("До скорой встречи.")
         );
     }
