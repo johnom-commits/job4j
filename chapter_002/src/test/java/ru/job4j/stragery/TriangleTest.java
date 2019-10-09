@@ -5,19 +5,19 @@ import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-public class SquareTest {
+public class TriangleTest {
     @Test
-    public void whenDrawSquare() {
-        Square square = new Square();
-        String result = square.draw();
-        String expected =   new StringBuilder()
-                .append("+++++++")
+    public void whenDrawTriangle() {
+        Shape triangle = new Triangle();
+        String result = triangle.draw();
+        String expected = new StringBuilder()
+                .append("   +  ")
                 .append(System.lineSeparator())
-                .append("+     +")
+                .append("  +  +")
                 .append(System.lineSeparator())
-                .append("+     +")
+                .append(" +    +")
                 .append(System.lineSeparator())
-                .append("+++++++")
+                .append("++++++++")
                 .toString();
         assertThat(result, is(expected));
     }
