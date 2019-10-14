@@ -1,7 +1,11 @@
 package ru.job4j.tracker;
 
-public class StubAction implements UserAction {
+public class StubAction extends BaseAction {
     private boolean call = false;
+
+    protected StubAction(int key, String name) {
+        super(key, name);
+    }
 
     @Override
     public String name() {

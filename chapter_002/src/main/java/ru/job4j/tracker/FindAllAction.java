@@ -1,6 +1,11 @@
 package ru.job4j.tracker;
 
-public class FindAllAction implements UserAction {
+public class FindAllAction extends BaseAction {
+
+    protected FindAllAction(int key, String name) {
+        super(key, name);
+    }
+
     @Override
     public String name() {
         return "Show all items";

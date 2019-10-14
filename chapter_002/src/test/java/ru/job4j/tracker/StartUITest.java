@@ -13,7 +13,7 @@ public class StartUITest {
     @Test
     public void doneInit() {
         Input input = new StubInput(new String[]{"0"});
-        StubAction action = new StubAction();
+        StubAction action = new StubAction(0, "Stub action");
         new StartUI().init(input, new Tracker(), new UserAction[]{action});
         assertThat(action.isCall(), is(true));
     }
@@ -25,7 +25,7 @@ public class StartUITest {
         StubInput input = new StubInput(
                 new String[] {"0"}
         );
-        StubAction action = new StubAction();
+        StubAction action = new StubAction(0, "Stub action");
         new StartUI().init(input, new Tracker(), new UserAction[] {action});
         String expect = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
                 .add("Menu.")

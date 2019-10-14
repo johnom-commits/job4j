@@ -30,7 +30,7 @@ public class UserActionFindTests {
         Item item = new Item("new name");
         String[] answers = {item.getName()};
         tracker.add(item);
-        FindAllAction findAllAction = new FindAllAction();
+        FindAllAction findAllAction = new FindAllAction(1, "Show all items");
         findAllAction.execute(new StubInput(answers), tracker);
         String result = out.toString();
         String expected = new StringBuilder()
@@ -47,7 +47,7 @@ public class UserActionFindTests {
     @Test
     public void whenFindByNameAction() {
         Tracker tracker = new Tracker();
-        FindByNameAction action = new FindByNameAction();
+        FindByNameAction action = new FindByNameAction(5, "Find items by name");
         Item item = new Item("new name");
         String[] answers = {item.getName()};
         tracker.add(item);
@@ -63,7 +63,7 @@ public class UserActionFindTests {
     @Test
     public void whenFindByIdAction() {
         Tracker tracker = new Tracker();
-        FindByIdAction action = new FindByIdAction();
+        FindByIdAction action = new FindByIdAction(4, "Find item by Id");
         Item item = new Item("new name");
         tracker.add(item);
         String[] answers = {item.getId()};

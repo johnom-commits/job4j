@@ -11,7 +11,7 @@ public class UserActionTests {
         String[] answers = {"Fix PC"};
         Input input = new StubInput(answers);
         Tracker tracker = new Tracker();
-        CreateAction action = new CreateAction();
+        CreateAction action = new CreateAction(0, "Add a new item");
         action.execute(input, tracker);
         Item created = tracker.findAll()[0];
         Item expected = new Item("Fix PC");
@@ -26,7 +26,7 @@ public class UserActionTests {
                 item.getId(), // id сохраненной заявки в объект tracker.
                 "replaced item"
         };
-        ReplaceAction replaceAction = new ReplaceAction();
+        ReplaceAction replaceAction = new ReplaceAction(2, "Edit item");
         replaceAction.execute(new StubInput(answers), tracker);
         Item replaced = tracker.findById(item.getId());
         assertThat(replaced.getName(), is("replaced item"));
@@ -37,7 +37,7 @@ public class UserActionTests {
         Item item = new Item("new name");
         tracker.add(item);
         String[] answers = {item.getId()};
-        DeleteAction deleteAction = new DeleteAction();
+        DeleteAction deleteAction = new DeleteAction(3, "Delete item");
         deleteAction.execute(new StubInput(answers), tracker);
         Object expected = null;
         assertThat(tracker.findById(item.getId()), is(expected));
