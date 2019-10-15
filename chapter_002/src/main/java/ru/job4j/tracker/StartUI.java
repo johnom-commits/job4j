@@ -1,7 +1,5 @@
 package ru.job4j.tracker;
 
-import ru.job4j.singleton.TrackerSingle;
-
 public class StartUI {
 
     public void init(Input input, Tracker tracker, UserAction[] actions) {
