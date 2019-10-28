@@ -15,14 +15,13 @@ public class UserConvert {
     }
 
     public static HashMap<Integer, User> process(List<User> list) {
-        if (!list.isEmpty()) {
-            HashMap<Integer, User> hm = new HashMap<>();
-            for (User u : list) {
-                hm.put(u.getId(), u);
-            }
-            return hm;
-        } else {
+        if (list.isEmpty()) {
             return null;
         }
+         HashMap<Integer, User> hm = new HashMap<>();
+         for (User u : list) {
+             hm.put(u.getId(), u);
+         }
+         return hm;
+        }
     }
-}
