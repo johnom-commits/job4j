@@ -1,6 +1,9 @@
 package ru.job4j.tracker;
 
 import org.junit.Test;
+
+import java.util.List;
+
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -37,8 +40,8 @@ public class TrackerTest {
         tracker.add(second);
         Item third = new Item("test3");
         tracker.add(third);
-        Item[] copy = tracker.findAll();
-        assertThat(copy.length, is(3));
+        List<Item> copy = tracker.findAll();
+        assertThat(copy.size(), is(3));
     }
 
     @Test
@@ -50,8 +53,8 @@ public class TrackerTest {
         tracker.add(second);
         Item third = new Item("test2");
         tracker.add(third);
-        Item[] copy = tracker.findByName("test2");
-        assertThat(copy.length, is(2));
+        List<Item> copy = tracker.findByName("test2");
+        assertThat(copy.size(), is(2));
     }
     @Test
     public void testFindById() {
@@ -71,8 +74,8 @@ public class TrackerTest {
         Item third = new Item("test3");
         tracker.add(third);
         tracker.delete(second.getId());
-        Item[] copy = tracker.findAll();
-        assertThat(copy.length, is(2));
+        List<Item> copy = tracker.findAll();
+        assertThat(copy.size(), is(2));
     }
     @Test
     public void testDeleteFirstItem() {
@@ -86,7 +89,7 @@ public class TrackerTest {
         Item forth = new Item("test4");
         tracker.add(forth);
         tracker.delete(first.getId());
-        Item[] copy = tracker.findAll();
-        assertThat(copy.length, is(3));
+        List<Item> copy = tracker.findAll();
+        assertThat(copy.size(), is(3));
     }
 }

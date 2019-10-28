@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 /**
  * @version $Id$
@@ -7,7 +9,7 @@ import java.util.Random;
  */
 public class Tracker {
     /** Массив для хранение заявок. */
-    private final Item[] items = new Item[100];
+    private final ArrayList<Item> items = new ArrayList<Item>(100);
     /**Указатель ячейки для новой заявки. */
     private int position = 0;
     /**
@@ -16,47 +18,43 @@ public class Tracker {
      */
     public Item add(Item item) {
         item.setId(this.generateId());
-        this.items[this.position++] = item;
+        items.add(position++, item);
         return item;
     }
 
     public Item findById(String id) {
         Item tmp = null;
         for (int i = 0; i < position; i++) {
-            if (items[i] != null && items[i].getId().equals(id)) {
-                tmp = items[i];
+            if (items.get(i) != null && items.get(i).getId().equals(id)) {
+                tmp = items.get(i);
                 break;
             }
         }
         return tmp;
     }
 
-    public Item[] findByName(String key) {
-        Item[] array = new Item[position];
+    public List<Item> findByName(String key) {
+        List<Item> array = new ArrayList<Item>(position);
         int index = 0;
         for (int i = 0; i < position; i++) {
-            if (items[i] != null && items[i].getName().equals(key)) {
-                array[index] = items[i];
+            if (items.get(i) != null && items.get(i).getName().equals(key)) {
+                array.add(items.get(i));
                 index++;
             }
         }
-        Item[] copy = new Item[index];
-        System.arraycopy(array, 0, copy, 0, index);
-        return copy;
+        return array.subList(0, index);
     }
 
-    public Item[] findAll() {
-        Item[] copy = new Item[position];
-        System.arraycopy(items, 0, copy, 0, position);
-        return copy;
+    public List<Item> findAll() {
+        return items;
     }
 
     public boolean replace(String id, Item item) {
         Boolean flag = false;
         for (int i = 0; i < position; i++) {
-            if (items[i] != null && items[i].getId().equals(id)) {
+            if (items.get(i) != null && items.get(i).getId().equals(id)) {
                 flag = true;
-                items[i] = item;
+                items.set(i, item);
                 break;
             }
         }
@@ -67,8 +65,8 @@ public class Tracker {
         int index = 0;
         boolean find = false;
         for (int i = 0; i < position; i++) {
-            if (items[i] != null && items[i].getId().equals(id)) {
-                System.arraycopy(items, i + 1, items, i, position - i);
+            if (items.get(i) != null && items.get(i).getId().equals(id)) {
+                items.remove(i);
                 position--;
                 find = true;
                 break;

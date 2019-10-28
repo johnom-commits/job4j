@@ -13,7 +13,7 @@ public class UserActionTests {
         Tracker tracker = new Tracker();
         CreateAction action = new CreateAction(0, "Add a new item");
         action.execute(input, tracker);
-        Item created = tracker.findAll()[0];
+        Item created = tracker.findAll().get(0);
         Item expected = new Item("Fix PC");
         assertThat(created.getName(), is(expected.getName()));
     }

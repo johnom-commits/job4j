@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.List;
+
 public class FindAllAction extends BaseAction {
 
     protected FindAllAction(int key, String name) {
@@ -13,8 +15,8 @@ public class FindAllAction extends BaseAction {
 
     @Override
     public boolean execute(Input input, Tracker tracker) {
-        Item[] copy = tracker.findAll();
-        if (copy.length == 0) {
+        List<Item> copy = tracker.findAll();
+        if (copy.size() == 0) {
             System.out.println("There are no items");
         } else {
             System.out.println("=== All items =====");
