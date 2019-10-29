@@ -9,7 +9,7 @@ import java.util.Random;
  */
 public class Tracker {
     /** Массив для хранение заявок. */
-    private final ArrayList<Item> items = new ArrayList<Item>(100);
+    private final List<Item> items = new ArrayList<Item>(100);
     /**Указатель ячейки для новой заявки. */
     private int position = 0;
     /**
@@ -18,7 +18,8 @@ public class Tracker {
      */
     public Item add(Item item) {
         item.setId(this.generateId());
-        items.add(position++, item);
+        items.add(item);
+        position++;
         return item;
     }
 
