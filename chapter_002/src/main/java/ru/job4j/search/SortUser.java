@@ -4,7 +4,7 @@ import java.util.*;
 
 public class SortUser {
     public static void main(String[] args) {
-        List<User> list = new ArrayList();
+        List<User> list = new ArrayList<>();
         list.add(new User(33, "Ivan"));
         list.add(new User(40, "Dermidont"));
         list.add(new User(30, "Vova"));
