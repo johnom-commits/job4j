@@ -30,31 +30,33 @@ public class Bank {
     }
 
     public List<Account> getUserAccounts(String passport) {
+        List<Account> accounts = null;
         for (Map.Entry<User, List<Account>> user : map.entrySet()) {
-            if (user.getKey().getPassport().compareTo(passport) == 0) {
-                return user.getValue();
+            if (user.getKey().getPassport().equals(passport)) {
+                accounts = user.getValue();
             }
         }
-        return null;
+        return accounts;
     }
 
     public Account getAccount(String passport, String requisite) {
+        Account account = null;
         List<Account> accounts = getUserAccounts(passport);
-        for (Account account : accounts) {
-            if (account.getRequisites().compareTo(requisite) == 0) {
-                return account;
+        for (Account acc : accounts) {
+            if (acc.getRequisites().equals(requisite)) {
+                account = acc;
             }
         }
-        return null;
+        return account;
     }
 
     public boolean transferMoney(String srcPassport, String srcRequisite, String destPassport, String destRequisite, double amount) {
         Account srcAccount = getAccount(srcPassport, srcRequisite);
+        Account destAccount = getAccount(destPassport, destRequisite);
         double srcValue = srcAccount.getValue();
-        if (srcAccount == null || srcValue < amount) {
+        if (srcAccount == null || destAccount == null || srcValue < amount) {
             return false;
         }
-        Account destAccount = getAccount(destPassport, destRequisite);
         srcValue -= amount;
         srcAccount.setValue(srcValue);
         double destValue = destAccount.getValue();
