@@ -17,7 +17,15 @@ public class Account {
         return value;
     }
 
-    public void setValue(double value) {
-        this.value = value;
+    public boolean credit(double sum) {
+        if (sum > value) {
+            return false;
+        }
+        value -= sum;
+        return true;
+    }
+
+    public void debit(double sum) {
+        value += sum;
     }
 }
