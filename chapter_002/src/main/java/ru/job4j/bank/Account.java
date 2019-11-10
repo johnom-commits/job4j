@@ -17,15 +17,18 @@ public class Account {
         return value;
     }
 
-    public boolean credit(double sum) {
+    public void setValue(double aValue) {
+        value = aValue;
+    }
+
+    public boolean transfer(double sum, Account destAccount) {
         if (sum > value) {
             return false;
         }
         value -= sum;
+        double destValue = destAccount.getValue();
+        destValue += sum;
+        destAccount.setValue(destValue);
         return true;
-    }
-
-    public void debit(double sum) {
-        value += sum;
     }
 }

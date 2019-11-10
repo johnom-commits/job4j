@@ -53,14 +53,9 @@ public class Bank {
     public boolean transferMoney(String srcPassport, String srcRequisite, String destPassport, String destRequisite, double amount) {
         Account srcAccount = getAccount(srcPassport, srcRequisite);
         Account destAccount = getAccount(destPassport, destRequisite);
-        boolean result;
-        if (srcAccount == null || destAccount == null) {
-            result = false;
-        } else {
-            result = srcAccount.credit(amount);
-        }
-        if (result) {
-            destAccount.debit(amount);
+        boolean result = false;
+        if (srcAccount != null && destAccount != null) {
+            result = srcAccount.transfer(amount, destAccount);
         }
         return result;
     }
