@@ -30,7 +30,7 @@ public class Bank {
     }
 
     public List<Account> getUserAccounts(String passport) {
-        List<Account> accounts = null;
+        List<Account> accounts = new ArrayList<>();
         for (Map.Entry<User, List<Account>> user : map.entrySet()) {
             if (user.getKey().getPassport().equals(passport)) {
                 accounts = user.getValue();
