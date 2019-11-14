@@ -39,11 +39,12 @@ public class Departure {
     }
 
     public void fillGaps(List<String> orgs) {
+        final int UNICODE_POINT_CODE = 47;
         int i;
         String depart;
         List<String> addList = new ArrayList<>();
         for (String org : orgs) {
-            i = org.lastIndexOf(47);
+            i = org.lastIndexOf(UNICODE_POINT_CODE);
             if (i == -1) {
                 continue;
             }
