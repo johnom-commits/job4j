@@ -35,10 +35,7 @@ public class Bank {
     }
 
     public Account getAccount(String passport, String requisite) {
-        Account[] account = {null};
-        List<Account> accounts = getUserAccounts(passport);
-        accounts.stream().filter(a -> a.getRequisites().equals(requisite)).forEach(x -> account[0] = x);
-        return account[0];
+        return getUserAccounts(passport).stream().filter(a -> a.getRequisites().equals(requisite)).collect(Collectors.toMap(a -> "acc", a -> a)).get("acc");
     }
 
     public boolean transferMoney(String srcPassport, String srcRequisite, String destPassport, String destRequisite, double amount) {
