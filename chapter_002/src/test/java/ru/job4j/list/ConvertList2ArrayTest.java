@@ -42,9 +42,9 @@ public class ConvertList2ArrayTest {
     @Test
     public void whenConvertList() {
         ConvertList2Array convertList = new ConvertList2Array();
-        List<int[]> list = new ArrayList<>();
-        list.add(new int[]{1, 2});
-        list.add(new int[]{3, 4, 5, 6});
+        List<int[]> list = List.of(
+                        new int[]{1, 2},
+                        new int[]{3, 4, 5, 6});
         List<Integer> result = convertList.convert(list);
         List<Integer> expected = new ArrayList<>();
         for (int i = 1; i < 7; i++) {

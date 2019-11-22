@@ -20,8 +20,7 @@ public class BankTest {
         bank.deleteAccountFromUser("00555", account2);
         List<Account> result = bank.getUserAccounts("00555");
 
-        List<Account> expected = new ArrayList<>();
-        expected.add(account);
+        List<Account> expected = List.of(account);
         assertThat(result, is(expected));
     }
 

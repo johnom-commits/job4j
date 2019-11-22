@@ -20,9 +20,7 @@ public class AddressTest {
         Profiles profiles = new Profiles();
         List<Address> result = profiles.collect(list);
 
-        List<Address> expected = new ArrayList<>();
-        expected.add(address);
-        expected.add(address1);
+        List<Address> expected = List.of(address, address1);
         assertThat(result, is(expected));
     }
 }
