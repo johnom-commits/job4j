@@ -15,7 +15,7 @@ public class PriorityQueue {
         if (tasks.size() == 0) {
             tasks.add(task);
         } else {
-            int i = 0;
+            var i = 0;
             while (tasks.get(i).getPriority() < task.getPriority()) {
                 i++;
             }
@@ -24,6 +24,6 @@ public class PriorityQueue {
     }
 
     public Task take() {
-        return this.tasks.poll();
+        return tasks.poll();
     }
 }
