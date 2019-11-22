@@ -35,7 +35,7 @@ public class Bank {
     }
 
     public Account getAccount(String passport, String requisite) {
-        return getUserAccounts(passport).stream().filter(a -> a.getRequisites().equals(requisite)).collect(Collectors.toMap(a -> "acc", a -> a)).get("acc");
+        return getUserAccounts(passport).stream().filter(a -> a.getRequisites().equals(requisite)).findFirst().orElse(null);
     }
 
     public boolean transferMoney(String srcPassport, String srcRequisite, String destPassport, String destRequisite, double amount) {
