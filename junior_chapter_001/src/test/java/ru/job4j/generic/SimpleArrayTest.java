@@ -39,7 +39,7 @@ public class SimpleArrayTest {
         array.add("John");
         array.remove(1);
 
-        assertThat(array.get(1), is("John"));
+        assertThat(array.get(2), is("John"));
     }
 
     @Test(expected = ArrayIndexOutOfBoundsException.class)
@@ -66,6 +66,27 @@ public class SimpleArrayTest {
         assertThat(iterator.next(), is(1));
         assertThat(iterator.next(), is(2));
         assertThat(iterator.next(), is(3));
+        assertThat(iterator.hasNext(), is(false));
+    }
+
+    @Test
+    public void whenHaveIteratorNoItems() {
+        SimpleArray<Integer> array = new SimpleArray<>(3);
+        Iterator<Integer> iterator = array.iteratorA();
+
+        assertThat(iterator.hasNext(), is(false));
+    }
+
+    @Test
+    public void whenHaveIteratorItemsLessLenght() {
+        SimpleArray<Integer> array = new SimpleArray<>(10);
+        array.add(1);
+        array.add(2);
+        Iterator<Integer> iterator = array.iteratorA();
+
+        assertThat(iterator.hasNext(), is(true));
+        assertThat(iterator.next(), is(1));
+        assertThat(iterator.next(), is(2));
         assertThat(iterator.hasNext(), is(false));
     }
 }

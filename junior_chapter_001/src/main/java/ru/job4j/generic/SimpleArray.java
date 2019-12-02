@@ -1,14 +1,17 @@
 package ru.job4j.generic;
 
 import java.util.Iterator;
+import java.util.Objects;
 
 public class SimpleArray<T> {
 
     private T[] array;
     private int index = 0;
+    private int size;
 
     public SimpleArray(int size) {
         array = (T[]) new Object[size];
+        this.size = size;
     }
 
     public void add(T value) throws ArrayIndexOutOfBoundsException {
@@ -20,14 +23,17 @@ public class SimpleArray<T> {
     }
 
     public T get(int i) {
+        Objects.checkIndex(i, size);
         return array[i];
     }
 
     public void set(int i, T value) {
+        Objects.checkIndex(i, size);
         array[i] = value;
     }
 
     public void remove(int i) {
+        Objects.checkIndex(i, size);
         System.arraycopy(array, i, array, i - 1, array.length - 1);
         index--;
     }
@@ -39,7 +45,7 @@ public class SimpleArray<T> {
 
             @Override
             public boolean hasNext() {
-                return count < array.length;
+                return count < index;
             }
 
             @Override
