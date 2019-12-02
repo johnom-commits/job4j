@@ -33,13 +33,15 @@ public class SimpleArrayTest {
 
     @Test
     public void whenRemoveItem() {
-        SimpleArray<String> array = new SimpleArray<>(3);
+        SimpleArray<String> array = new SimpleArray<>(5);
         array.add("Test");
         array.add("Name");
         array.add("John");
+        array.add("Bill");
+        array.add("Tom");
         array.remove(1);
 
-        assertThat(array.get(2), is("John"));
+        assertThat(array.get(1), is("John"));
     }
 
     @Test(expected = ArrayIndexOutOfBoundsException.class)

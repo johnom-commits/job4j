@@ -34,7 +34,7 @@ public class SimpleArray<T> {
 
     public void remove(int i) {
         Objects.checkIndex(i, size);
-        System.arraycopy(array, i, array, i - 1, array.length - 1);
+        System.arraycopy(array, i + 1, array, i, array.length - i - 1);
         index--;
     }
 
