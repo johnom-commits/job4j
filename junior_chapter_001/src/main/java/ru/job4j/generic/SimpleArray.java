@@ -38,6 +38,15 @@ public class SimpleArray<T> {
         index--;
     }
 
+    public int indexOf(T o) {
+        for (int i = 0; i < size; i++) {
+            if (o.equals(array[i])) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public Iterator<T> iteratorA() {
 
         return new Iterator<T>() {
