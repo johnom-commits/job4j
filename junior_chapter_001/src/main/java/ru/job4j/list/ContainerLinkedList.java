@@ -24,6 +24,10 @@ public class ContainerLinkedList<E> implements Iterable<E> {
         return list.get(index);
     }
 
+    public void remove() {
+        list.delete();
+    }
+
     @Override
     public Iterator<E> iterator() {
         return new Iter();
@@ -34,7 +38,7 @@ public class ContainerLinkedList<E> implements Iterable<E> {
         int expectedModCount = modCount;
 
         @Override
-        public boolean hasNext() throws ConcurrentModificationException {
+        public boolean hasNext() {
             if (expectedModCount != modCount) {
                 throw new ConcurrentModificationException();
             }
@@ -42,7 +46,7 @@ public class ContainerLinkedList<E> implements Iterable<E> {
         }
 
         @Override
-        public E next() throws ConcurrentModificationException, NoSuchElementException {
+        public E next() {
             if (index == size) {
                 throw new NoSuchElementException("Достигнут конец массива");
             }
