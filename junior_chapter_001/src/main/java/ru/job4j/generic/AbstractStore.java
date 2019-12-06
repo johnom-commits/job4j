@@ -2,7 +2,7 @@ package ru.job4j.generic;
 
 import java.util.Iterator;
 
-public abstract class AbstractStore<T extends Base> implements Store {
+public abstract class AbstractStore<T extends Base> implements Store<T> {
 
     SimpleArray<T> simpleArray;
     int index = 0;

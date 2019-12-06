@@ -59,9 +59,7 @@ public class SimpleArray<T> {
 
             @Override
             public T next() {
-               T result = array[count];
-               count++;
-               return result;
+                return array[count++];
             }
         };
     }

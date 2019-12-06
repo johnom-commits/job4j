@@ -39,7 +39,7 @@ public class SimpleDinamicList<E> implements Iterable<E> {
         int expectedModCount = modCount;
 
         @Override
-        public boolean hasNext() throws ConcurrentModificationException {
+        public boolean hasNext() {
             if (expectedModCount != modCount) {
                 throw new ConcurrentModificationException();
             }
@@ -47,7 +47,7 @@ public class SimpleDinamicList<E> implements Iterable<E> {
         }
 
         @Override
-        public E next() throws ConcurrentModificationException, NoSuchElementException {
+        public E next() {
             if (index == size) {
                 throw new NoSuchElementException("Достигнут конец массива");
             }
