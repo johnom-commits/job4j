@@ -30,7 +30,7 @@ public abstract class AbstractStore<T extends Base> implements Store<T> {
 
     @Override
     public T findById(String id) {
-        Iterator<T> it = simpleArray.iteratorA();
+        Iterator<T> it = simpleArray.iterator();
         while (it.hasNext()) {
             T item = it.next();
             if (item.getId().equals(id)) {
@@ -40,10 +40,22 @@ public abstract class AbstractStore<T extends Base> implements Store<T> {
         return null;
     }
 
+    private int findIndex(String id) {
+        int index = -1;
+        int k = 0;
+        for (T item : simpleArray) {
+            if (item.getId().equals(id)) {
+                index = k;
+                break;
+            }
+            k++;
+        }
+        return index;
+    }
+
     @Override
     public boolean delete(String id) {
-        T item = findById(id);
-        int index = simpleArray.indexOf(item);
+        int index = findIndex(id);
         if (index == -1) {
             return false;
         }

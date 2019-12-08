@@ -3,7 +3,7 @@ package ru.job4j.generic;
 import java.util.Iterator;
 import java.util.Objects;
 
-public class SimpleArray<T> {
+public class SimpleArray<T> implements Iterable<T> {
 
     private T[] array;
     private int index = 0;
@@ -47,7 +47,7 @@ public class SimpleArray<T> {
         return -1;
     }
 
-    public Iterator<T> iteratorA() {
+    public Iterator<T> iterator() {
 
         return new Iterator<T>() {
             private int count = 0;

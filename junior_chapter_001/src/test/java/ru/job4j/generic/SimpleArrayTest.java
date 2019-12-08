@@ -62,7 +62,7 @@ public class SimpleArrayTest {
         array.add(1);
         array.add(2);
         array.add(3);
-        Iterator<Integer> iterator = array.iteratorA();
+        Iterator<Integer> iterator = array.iterator();
 
         assertThat(iterator.hasNext(), is(true));
         assertThat(iterator.next(), is(1));
@@ -74,7 +74,7 @@ public class SimpleArrayTest {
     @Test
     public void whenHaveIteratorNoItems() {
         SimpleArray<Integer> array = new SimpleArray<>(3);
-        Iterator<Integer> iterator = array.iteratorA();
+        Iterator<Integer> iterator = array.iterator();
 
         assertThat(iterator.hasNext(), is(false));
     }
@@ -84,7 +84,7 @@ public class SimpleArrayTest {
         SimpleArray<Integer> array = new SimpleArray<>(10);
         array.add(1);
         array.add(2);
-        Iterator<Integer> iterator = array.iteratorA();
+        Iterator<Integer> iterator = array.iterator();
 
         assertThat(iterator.hasNext(), is(true));
         assertThat(iterator.next(), is(1));
