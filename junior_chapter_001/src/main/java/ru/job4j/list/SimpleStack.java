@@ -9,9 +9,7 @@ public class SimpleStack<T> {
     }
 
     public T poll() {
-        T value = (T) list.get(0);
-        list.remove();
-        return value;
+        return (T) list.remove();
     }
 
     public void push(T value) {

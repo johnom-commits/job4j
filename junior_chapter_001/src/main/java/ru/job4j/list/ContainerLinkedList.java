@@ -24,8 +24,8 @@ public class ContainerLinkedList<E> implements Iterable<E> {
         return list.get(index);
     }
 
-    public void remove() {
-        list.delete();
+    public E remove() {
+        return list.delete();
     }
 
     @Override
