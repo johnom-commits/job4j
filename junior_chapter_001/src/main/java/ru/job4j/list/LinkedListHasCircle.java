@@ -10,14 +10,10 @@ public class LinkedListHasCircle<E> {
         Node<Integer> turtle = first;
         Node<Integer> hare = first;
 
-        while (true) {
+        while (true | hare.next == null) {
             turtle = turtle.next;
+            hare = hare.next.next;
 
-            if (hare.next != null) {
-                hare = hare.next.next;
-            } else {
-                return false;
-            }
             if (turtle == null || hare == null) {
                 return false;
             }
@@ -25,6 +21,7 @@ public class LinkedListHasCircle<E> {
                 return true;
             }
         }
+        return false;
     }
 
     public static class Node<E> {
