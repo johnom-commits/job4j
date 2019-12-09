@@ -27,11 +27,26 @@ public class SimpleSetTest<E> {
 
     @Test
     public void whenHasIterator() {
-        Iterator<String> it = set.eIterator();
+        Iterator<String> it = set.iterator();
         it.next();
         it.next();
         it.next();
         // Проверяем, что в сете 3 элемента, а не 4.
         assertThat(it.hasNext(), is(false));
+    }
+
+    @Test
+    public void whenString() {
+        SimpleSet<Integer> s = new SimpleSet<>(5);
+        s.add(1);
+        s.add(null);
+        s.add(2);
+        s.add(2);
+
+        Iterator<Integer> it = s.iterator();
+        it.next();
+        it.next();
+
+        assertThat(it.next(), is(2));
     }
 }

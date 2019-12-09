@@ -4,7 +4,7 @@ import ru.job4j.generic.SimpleArray;
 
 import java.util.Iterator;
 
-public class SimpleSet<E> {
+public class SimpleSet<E> implements Iterable<E> {
     SimpleArray<E> set;
     int size = 0;
 
@@ -22,14 +22,18 @@ public class SimpleSet<E> {
     public boolean isPresent(E e) {
         boolean result = false;
         for (int i = 0; i < size; i++) {
-            if (e.equals(set.get(i))) {
+            E item = set.get(i);
+            if (e == null) {
+                return  (item == null) ? true : false;
+            }
+            if (e.equals(item)) {
                 result = true;
             }
         }
         return result;
     }
 
-    public Iterator<E> eIterator() {
-        return set.iteratorA();
+    public Iterator<E> iterator() {
+        return set.iterator();
     }
 }
