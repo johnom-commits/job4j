@@ -10,7 +10,7 @@ public class LinkedListHasCircle<E> {
         Node<Integer> turtle = first;
         Node<Integer> hare = first;
 
-        while (true | hare.next == null) {
+        while (hare.next != null) {
             turtle = turtle.next;
             hare = hare.next.next;
 
