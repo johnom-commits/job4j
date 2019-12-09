@@ -19,8 +19,7 @@ public abstract class AbstractStore<T extends Base> implements Store<T> {
 
     @Override
     public boolean replace(String id, Base model) {
-        T item = findById(id);
-        int index = simpleArray.indexOf(item);
+        int index = findIndex(id);
         if (index == -1) {
             return false;
         }
