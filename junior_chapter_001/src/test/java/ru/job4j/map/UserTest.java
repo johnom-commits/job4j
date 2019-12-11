@@ -17,5 +17,4 @@ public class UserTest {
         map.put(user2, "Chugunkin");
         System.out.println(map);
     }
-
 }
