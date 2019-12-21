@@ -22,6 +22,9 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
                 data.offer(child);
             }
             size = Math.max(result.leaves().size(), size);
+            if (size > 2) {
+                break;
+            }
         }
         return size <= 2;
     }
