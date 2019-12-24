@@ -61,4 +61,15 @@ public class MyHashMapTest {
 
         assertTrue(it.hasNext());
     }
+
+    @Test
+    public void whenIteratorReturnValue() {
+        MyHashMap<Integer, String> map = new MyHashMap<>(3);
+        map.insert(1, "One");
+
+        Iterator it = map.iterator();
+        it.hasNext();
+
+        assertEquals("One", it.next());
+    }
 }

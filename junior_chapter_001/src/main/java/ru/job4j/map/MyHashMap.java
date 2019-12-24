@@ -1,7 +1,8 @@
 package ru.job4j.map;
 
-import java.util.ConcurrentModificationException;
-import java.util.Iterator;
+import java.util.*;
+import static java.util.Arrays.stream;
+import static java.util.stream.Collectors.toList;
 
 public class MyHashMap<K, V> implements Iterable<V> {
     private DataItem<K, V>[] table;
@@ -63,13 +64,14 @@ public class MyHashMap<K, V> implements Iterable<V> {
     private class Iter implements Iterator<V> {
         int index = -1;
         int expectedModCount = modCount;
+        List<DataItem<K, V>> list = stream(table).filter(x -> x != null).collect(toList());
 
         @Override
         public boolean hasNext() {
             if (expectedModCount != modCount) {
                 throw new ConcurrentModificationException();
             }
-            return index < table.length;
+            return index < list.size();
         }
 
         @Override
@@ -77,7 +79,10 @@ public class MyHashMap<K, V> implements Iterable<V> {
             if (expectedModCount != modCount) {
                 throw new ConcurrentModificationException();
             }
-            return table[++index].getData();
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            return list.get(++index).getData();
         }
     }
 }
