@@ -72,4 +72,22 @@ public class MyHashMapTest {
 
         assertEquals("One", it.next());
     }
+
+    @Test
+    public void whenUseIteratorForEmptyMap() {
+        MyHashMap<Integer, String> map = new MyHashMap<>(3);
+        Iterator it = map.iterator();
+
+        assertFalse(it.hasNext());
+    }
+
+    @Test
+    public void whenUseIteratorAndDeleteItem() {
+        MyHashMap<Integer, String> map = new MyHashMap<>(3);
+        map.insert(1, "One");
+        map.delete(1);
+        Iterator it = map.iterator();
+
+        assertFalse(it.hasNext());
+    }
 }

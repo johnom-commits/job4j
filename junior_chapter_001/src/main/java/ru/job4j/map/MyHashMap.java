@@ -64,12 +64,15 @@ public class MyHashMap<K, V> implements Iterable<V> {
     private class Iter implements Iterator<V> {
         int index = -1;
         int expectedModCount = modCount;
-        List<DataItem<K, V>> list = stream(table).filter(x -> x != null).collect(toList());
+        List<DataItem<K, V>> list = stream(table).filter(x -> x != null).filter(x -> x.getData() != null).collect(toList());
 
         @Override
         public boolean hasNext() {
             if (expectedModCount != modCount) {
                 throw new ConcurrentModificationException();
+            }
+            if (list.size() == 0) {
+                return false;
             }
             return index < list.size();
         }
