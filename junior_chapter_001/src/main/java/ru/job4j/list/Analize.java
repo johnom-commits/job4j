@@ -1,39 +1,31 @@
 package ru.job4j.list;
 
 import java.util.List;
+import java.util.Map;
+import static java.util.stream.Collectors.toMap;
 
 public class Analize {
 
     public Info diff(List<User> previous, List<User> current) {
-        int deleted = 0;
         int added = 0;
         int changed = 0;
-        int diffLength = previous.size() - current.size();
-        if (diffLength > 0) {
-            deleted = diffLength;
-        } else if (diffLength < 0) {
-            added = -diffLength;
-        }
-        for (User u : previous) {
-            User user = findUser(u.id, current);
-            if (user != null && !user.name.equals(u.name)) {
+        Map<Integer, String> map = previous.stream().collect(toMap(e -> e.id, e -> e.name));
+        for (var user : current) {
+            int id = user.id;
+            if (!map.containsKey(id)) {
+                added++;
+                continue;
+            }
+            String name = map.get(id);
+            if (!name.equals(user.name)) {
                 changed++;
             }
+            map.remove(id);
         }
+        int deleted = map.size();
 
         Info info = new Info(added, changed, deleted);
         return info;
-    }
-
-    private User findUser(int id, List<User> list) {
-        User user = null;
-        for (User u : list) {
-            if (u.id == id) {
-                user = u;
-                break;
-            }
-        }
-        return user;
     }
 
     public static class User {
