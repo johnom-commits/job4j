@@ -22,7 +22,7 @@ public class MyHashMap<K, V> implements Iterable<V> {
         }
         int bucket = getBucket(key, table.length);
         if (table[bucket] != null) {
-            if (table[bucket].getKey() == key) {
+            if (table[bucket].getKey().equals(key)) {
                 table[bucket].setData(value);
                 return true;
             }
