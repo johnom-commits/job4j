@@ -33,7 +33,7 @@ public class MyHashMapTest {
         map.insert("Name", "Ivan");
         Boolean result = map.insert("Name", "Ivan");
 
-        assertFalse(result);
+        assertTrue(result);
     }
 
     @Test
@@ -49,7 +49,7 @@ public class MyHashMapTest {
 
     @Test
     public void whenUseIterator() {
-        MyHashMap<Integer, String> map = new MyHashMap<>(3);
+        MyHashMap<Integer, String> map = new MyHashMap<>(6);
         map.insert(1, "One");
         map.insert(2, "Two");
         map.insert(3, "Three");
@@ -89,5 +89,15 @@ public class MyHashMapTest {
         Iterator it = map.iterator();
 
         assertFalse(it.hasNext());
+    }
+
+    @Test
+    public void whenInsertTheSameKey() {
+        MyHashMap<Integer, String> map = new MyHashMap<>(8);
+        map.insert(1, "One");
+        map.insert(2, "Two");
+        map.insert(1, "Three");
+
+        assertEquals("Three", map.get(1));
     }
 }

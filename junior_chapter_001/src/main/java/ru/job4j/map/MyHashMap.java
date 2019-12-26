@@ -1,8 +1,6 @@
 package ru.job4j.map;
 
 import java.util.*;
-import static java.util.Arrays.stream;
-import static java.util.stream.Collectors.toList;
 
 public class MyHashMap<K, V> implements Iterable<V> {
     private DataItem<K, V>[] table;
@@ -24,6 +22,10 @@ public class MyHashMap<K, V> implements Iterable<V> {
         }
         int bucket = getBucket(key, table.length);
         if (table[bucket] != null) {
+            if (table[bucket].getKey() == key) {
+                table[bucket].setData(value);
+                return true;
+            }
             return false;
         }
         DataItem<K, V> item = new DataItem<>(key, value);
@@ -53,6 +55,7 @@ public class MyHashMap<K, V> implements Iterable<V> {
     public boolean delete(K key) {
         int bucket = getBucket(key, table.length);
         table[bucket].setData(null);
+        size--;
         return true;
     }
 
@@ -62,19 +65,16 @@ public class MyHashMap<K, V> implements Iterable<V> {
     }
 
     private class Iter implements Iterator<V> {
-        int index = -1;
+        int index = 0;
+        int count = 0;
         int expectedModCount = modCount;
-        List<DataItem<K, V>> list = stream(table).filter(x -> x != null).filter(x -> x.getData() != null).collect(toList());
 
         @Override
         public boolean hasNext() {
             if (expectedModCount != modCount) {
                 throw new ConcurrentModificationException();
             }
-            if (list.size() == 0) {
-                return false;
-            }
-            return index < list.size();
+            return count < size;
         }
 
         @Override
@@ -85,7 +85,11 @@ public class MyHashMap<K, V> implements Iterable<V> {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
-            return list.get(++index).getData();
+            while (table[index] == null) {
+                index++;
+            }
+            count++;
+            return table[index].getData();
         }
     }
 }
