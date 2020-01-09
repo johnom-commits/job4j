@@ -1,54 +1,24 @@
 package io;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class Args {
-    Map<String, String> mapArgs = new HashMap<>();
+    String[] args;
 
     public Args(String[] args) {
-        parsingArgs(args);
-    }
-
-    private void parsingArgs(String[] args) {
-        int i = 0;
-        while (i < args.length) {
-            switch (args[i]) {
-                case "-e":
-                    var ext = new StringBuilder();
-                    i++;
-                    while (true) {
-                       ext.append(args[i++]);
-                       if (i == args.length || args[i].equals("-d") || args[i].equals("-o")) {
-                           break;
-                       }
-                    }
-                    mapArgs.put("exclude", ext.toString());
-                    i--;
-                    break;
-                case "-d":
-                    mapArgs.put("directory", args[++i]);
-                    i++;
-                    break;
-                case "-o":
-                    mapArgs.put("output", args[++i]);
-                    i++;
-                    break;
-                default:
-                    i++;
-            }
-        }
+        this.args = args;
     }
 
     public String directory() {
-        return mapArgs.get("directory");
+        return Arrays.stream(args).dropWhile(e -> !e.equals("-d")).skip(1).findFirst().get();
     }
 
     public String exclude() {
-        return mapArgs.get("exclude");
+        return Arrays.stream(args).dropWhile(e -> !e.equals("-e")).skip(1).takeWhile(e -> !e.startsWith("-")).collect(Collectors.joining(" "));
     }
 
     public String output() {
-        return mapArgs.get("output");
+        return Arrays.stream(args).dropWhile(e -> !e.equals("-o")).skip(1).findFirst().get();
     }
 }
