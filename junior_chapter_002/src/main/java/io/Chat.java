@@ -47,8 +47,8 @@ public class Chat {
     }
 
     private void readPhrases() {
-        try (var stream = Files.lines(Paths.get(WAY_PHRASE))) {
-            phases = stream.collect(Collectors.toList());
+        try {
+            phases = Files.readAllLines(Paths.get(WAY_PHRASE));
         } catch (IOException e) {
             e.printStackTrace();
         }
