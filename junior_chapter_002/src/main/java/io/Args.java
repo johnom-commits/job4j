@@ -1,24 +1,44 @@
 package io;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Args {
-    String[] args;
+    Map<String, String> mapArgs = new HashMap<>();
 
     public Args(String[] args) {
-        this.args = args;
+        parsingArgs(args);
+    }
+
+    private void parsingArgs(String[] args) {
+        int i = 0;
+        while (i < args.length) {
+            switch (args[i]) {
+                case "-e":
+                    mapArgs.put("exclude", args[++i]);
+                    i++;
+                    break;
+                case "-d":
+                    mapArgs.put("directory", args[++i]);
+                    i++;
+                    break;
+                case "-o":
+                    mapArgs.put("output", args[++i]);
+                    i++;
+                    break;
+            }
+        }
     }
 
     public String directory() {
-        return Arrays.stream(args).dropWhile(e -> !e.equals("-d")).skip(1).findFirst().get();
+        return mapArgs.get("directory");
     }
 
     public String exclude() {
-        return Arrays.stream(args).dropWhile(e -> !e.equals("-e")).skip(1).takeWhile(e -> !e.startsWith("-")).collect(Collectors.joining(" "));
+        return mapArgs.get("exclude");
     }
 
     public String output() {
-        return Arrays.stream(args).dropWhile(e -> !e.equals("-o")).skip(1).findFirst().get();
+        return mapArgs.get("output");
     }
 }
