@@ -9,14 +9,13 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Chat {
     private static final int MAX_LINE = 4000;
     private List<String> phases = new ArrayList<>(MAX_LINE);
     private List<String> listLog = new ArrayList<>();
-    private static final String WAY_PHRASE = "C:/projects/phrases.txt";
-    private static final String WAY_LOG = "C:/projects/log.txt";
+    private static final String WAY_PHRASE = "./../phrases.txt";
+    private static final String WAY_LOG = "./../log.txt";
     private static final String STOP = "Стоп";
     private static final String CONTINUE = "Продолжить";
     private static final String FINISH = "Закончить";
@@ -24,26 +23,29 @@ public class Chat {
     public static void main(String[] args) throws IOException {
         Chat main = new Chat();
         main.readPhrases();
+        main.readConsoleAndPrintPhrase();
+    }
 
+    private void readConsoleAndPrintPhrase() throws IOException {
         var br = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.println("Введите сообщение:");
         Boolean stop = false;
-        String str;
+        String str = "";
         do {
             str = br.readLine();
-            if (str.equals(STOP)) {
+            if (STOP.equals(str)) {
                 stop = true;
             }
-            if (str.equals(CONTINUE)) {
+            if (CONTINUE.equals(str)) {
                 stop = false;
             }
-            main.logging(str, " User: ");
-            if (!stop && !str.equals(FINISH)) {
-                main.printPhrase();
+            logging(str, " User: ");
+            if (!stop && !FINISH.equals(str)) {
+                printPhrase();
             }
-        } while (!str.equals(FINISH));
-        main.writeLog();
+        } while (!FINISH.equals(str));
+        writeLog();
     }
 
     private void readPhrases() {
