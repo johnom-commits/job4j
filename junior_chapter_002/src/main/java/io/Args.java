@@ -5,40 +5,48 @@ import java.util.Map;
 
 public class Args {
     Map<String, String> mapArgs = new HashMap<>();
+    private static final int LENGTH_ARGS = 6;
 
     public Args(String[] args) {
         parsingArgs(args);
     }
 
     private void parsingArgs(String[] args) {
-        int i = 0;
-        while (i < args.length) {
-            switch (args[i]) {
-                case "-e":
-                    mapArgs.put("exclude", args[++i]);
-                    i++;
-                    break;
-                case "-d":
-                    mapArgs.put("directory", args[++i]);
-                    i++;
-                    break;
-                case "-o":
-                    mapArgs.put("output", args[++i]);
-                    i++;
-                    break;
+        checkLengthArrayArgs(args);
+        String key = "";
+        String arg = "";
+        for (int i = 0; i < args.length; i++) {
+            arg = args[i];
+            int mod = i % 2;
+            if (mod == 0) {
+                if (!arg.startsWith("-")) {
+                    throw new IllegalArgumentException("Не верный ключ: " + arg);
+                }
+                key = arg;
+            } else {
+                if (arg.startsWith("-")) {
+                    throw new IllegalArgumentException("Не верное значение ключа: " + arg);
+                }
+                mapArgs.put(key, arg);
             }
         }
     }
 
+    private void checkLengthArrayArgs(String[] args) {
+        if (args.length < LENGTH_ARGS) {
+            throw new IllegalArgumentException("Указаны не все аргументы командной строки");
+        }
+    }
+
     public String directory() {
-        return mapArgs.get("directory");
+        return mapArgs.get("-d");
     }
 
     public String exclude() {
-        return mapArgs.get("exclude");
+        return mapArgs.get("-e");
     }
 
     public String output() {
-        return mapArgs.get("output");
+        return mapArgs.get("-o");
     }
 }
