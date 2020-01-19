@@ -20,14 +20,11 @@ public class SearchTest {
         File file3 = new File(directory, "test3.txt");
         file3.createNewFile();
         Search search = new Search();
-        List<String> exts = new ArrayList<>();
-        exts.add("txt");
-        List<File> result = search.files(directory, exts);
+        List<File> result = search.files(directory, FilesPredicate.textFiles);
 
         List<File> expected = new  ArrayList<>();
         expected.add(file1);
         expected.add(file3);
         assertThat(expected, is(result));
     }
-
 }

@@ -5,10 +5,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.function.Predicate;
 
 public class Search {
 
-    public List<File> files(String parent, List<String> exts) {
+    public List<File> files(String parent, Predicate<String> stringPredicate) {
         List<File> listFiles = new ArrayList<>();
         Queue<File> queue = new LinkedList<>();
         File root = new File(parent);
@@ -16,7 +17,7 @@ public class Search {
         queue.offer(root);
         while (!queue.isEmpty()) {
             File file = queue.poll();
-            if (file.isFile() && checkExt(file.getName(), exts)) {
+            if (file.isFile() && stringPredicate.test(file.getName())) {
                 listFiles.add(file);
             }
             File[] leafs = file.listFiles();
@@ -27,14 +28,5 @@ public class Search {
             }
         }
         return listFiles;
-    }
-
-    private Boolean checkExt(String name, List<String> exts) {
-        String[] partsName = name.split("\\.");
-        if (partsName.length == 1) {
-            return false;
-        }
-        int indexExt = partsName.length - 1;
-        return exts.contains(partsName[indexExt]);
     }
 }
