@@ -25,7 +25,8 @@ public class Client {
                 text = console.nextLine();
                 out.println(text);
             }
-            while (!text.equals("exit") && !(str = in.readLine()).isEmpty()) {
+            str = in.readLine();
+            while (!text.equals("exit") && !str.isEmpty()) {
                 System.out.println(str);
             }
         } while (!text.equals("exit"));
