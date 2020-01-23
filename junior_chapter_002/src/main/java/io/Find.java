@@ -24,8 +24,8 @@ public class Find {
         Charset utf8 = StandardCharsets.UTF_8;
         try {
             Files.write(Paths.get(path), listLog, utf8);
-        } catch (IOException x) {
-            System.err.format("IOException: %s%n", x);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
