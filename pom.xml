@@ -13,6 +13,7 @@
         <module>chapter_002</module>
         <module>junior_chapter_001</module>
         <module>junior_chapter_002</module>
+        <module>junior_chapter_003</module>
     </modules>
 
     <properties>
@@ -48,6 +49,16 @@
             <groupId>commons-cli</groupId>
             <artifactId>commons-cli</artifactId>
             <version>1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.13.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.13.0</version>
         </dependency>
 
     </dependencies>
