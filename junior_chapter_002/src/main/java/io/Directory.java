@@ -1,11 +1,13 @@
 package io;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 class Shell {
     private String currentDir;
+    private String separator = File.separator;
 
     public Shell(String currentDir) {
         this.currentDir = currentDir;
@@ -18,13 +20,12 @@ class Shell {
 
         String newDir = "";
         if ("..".equals(path)) {
-            int index = currentDir.lastIndexOf("\\");
+            int index = currentDir.lastIndexOf(separator);
             newDir = currentDir.substring(0, index);
-            System.out.println(newDir);
         } else {
             String slash = "";
-            if (!currentDir.endsWith("\\")) {
-                slash = "\\";
+            if (!currentDir.endsWith(separator)) {
+                slash = separator;
             }
             newDir = String.join(slash, currentDir, path);
             if (!Files.exists(Paths.get(newDir))) {
