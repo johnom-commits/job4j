@@ -29,7 +29,7 @@ class Shell {
             }
             newDir = String.join(slash, currentDir, path);
             if (!Files.exists(Paths.get(newDir))) {
-                throw new IOException("Данный каталог не существует");
+                throw new IOException("Данный каталог не существует: " + newDir);
             }
         }
         currentDir = newDir;
