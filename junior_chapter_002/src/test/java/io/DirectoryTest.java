@@ -10,11 +10,15 @@ import static org.junit.Assert.*;
 
 public class DirectoryTest {
     private String directory = System.getProperty("java.io.tmpdir");
-    private char sep = File.separatorChar;
-    private String path = String.format("%sdir1%sdir2%sdir3", directory, sep, sep);
+    private String sep = File.separator;
+    private String path = "";
 
     @Before
     public void init() {
+        if (!directory.endsWith(sep)) {
+            directory = directory + sep;
+        }
+        path = String.format("%sdir1%sdir2%sdir3", directory, sep, sep);
         File file = new File(path);
         file.mkdirs();
     }
