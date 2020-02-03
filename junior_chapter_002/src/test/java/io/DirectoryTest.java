@@ -15,7 +15,7 @@ public class DirectoryTest {
 
     @Before
     public void init() {
-        File file = new File(String.format("%s%sdir1%sdir2%sdir3", directory, sep, sep, sep));
+        File file = new File(path);
         file.mkdirs();
     }
 
