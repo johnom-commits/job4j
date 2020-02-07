@@ -7,10 +7,10 @@ import java.util.function.Consumer;
 public class StartUI {
 
     private final Input input;
-    private final Tracker tracker;
+    private final ITracker tracker;
     private final Consumer<String> output;
 
-    public StartUI(Input input, Tracker tracker, Consumer<String> output) {
+    public StartUI(Input input, ITracker tracker, Consumer<String> output) {
         this.input = input;
         this.tracker = tracker;
         this.output = output;
@@ -36,7 +36,7 @@ public class StartUI {
     public static void main(String[] args) {
         Input input = new ConsoleInput();
         Input validate = new ValidateInput(input);
-        Tracker tracker = new Tracker();
+        ITracker tracker = new Tracker();
         List<UserAction> actions = new ArrayList<UserAction>();
                 actions.add(new CreateAction(0, "Add a new item"));
                 actions.add(new FindAllAction(1, "Show all items"));

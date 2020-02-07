@@ -14,7 +14,7 @@ public class FindAllAction extends BaseAction {
     }
 
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, ITracker tracker) {
         List<Item> copy = tracker.findAll();
         if (copy.size() == 0) {
             System.out.println("There are no items");

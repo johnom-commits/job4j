@@ -12,7 +12,7 @@ public class FindByIdAction extends BaseAction {
     }
 
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, ITracker tracker) {
         String id = input.askStr("Please, enter Id:");
         Item item = tracker.findById(id);
         if (item != null) {

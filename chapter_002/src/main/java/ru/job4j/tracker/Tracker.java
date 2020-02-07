@@ -7,7 +7,7 @@ import java.util.Random;
  * @version $Id$
  * @since 0.1
  */
-public class Tracker {
+public class Tracker implements ITracker {
     /** Массив для хранение заявок. */
     private final List<Item> items = new ArrayList<Item>(100);
     /**Указатель ячейки для новой заявки. */
@@ -83,5 +83,10 @@ public class Tracker {
     private String generateId() {
         Random rm = new Random();
         return String.valueOf(rm.nextLong() + System.currentTimeMillis());
+    }
+
+    @Override
+    public void close() throws Exception {
+
     }
 }
