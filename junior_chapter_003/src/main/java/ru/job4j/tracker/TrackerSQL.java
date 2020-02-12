@@ -5,7 +5,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import java.util.UUID;
 
 public class TrackerSQL implements ITracker, AutoCloseable {
     private Connection connection;
@@ -33,7 +32,8 @@ public class TrackerSQL implements ITracker, AutoCloseable {
 
     private void initTablesDB() {
         try (final Statement st = connection.createStatement()) {
-            st.execute("CREATE TABLE IF NOT EXISTS items (id varchar(50) PRIMARY KEY, name varchar(50) NOT NULL)");
+            st.execute("CREATE SEQUENCE IF NOT EXISTS items_id_seq;\n"
+                    + "CREATE TABLE IF NOT EXISTS items (id text PRIMARY KEY DEFAULT nextval('items_id_seq')::text, name varchar(50) NOT NULL)");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -41,13 +41,18 @@ public class TrackerSQL implements ITracker, AutoCloseable {
 
     @Override
     public Item add(Item item) {
-        try (final PreparedStatement st = connection.prepareStatement("INSERT INTO items (id, name) VALUES (?, ?)", Statement.NO_GENERATED_KEYS)) {
-            String uniqueID = UUID.randomUUID().toString();
-            st.setString(1, uniqueID);
-            st.setString(2, item.getName());
-            item.setId(uniqueID);
+        try (final PreparedStatement st = connection.prepareStatement("INSERT INTO items (name) VALUES (?)", Statement.RETURN_GENERATED_KEYS)) {
+            st.setString(1, item.getName());
             st.executeUpdate();
-            return item;
+            try (ResultSet key = st.getGeneratedKeys()) {
+                if (key.next()) {
+                    item.setId(key.getString(1));
+                    return item;
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
