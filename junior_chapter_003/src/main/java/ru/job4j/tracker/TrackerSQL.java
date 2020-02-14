@@ -32,8 +32,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
 
     private void initTablesDB() {
         try (final Statement st = connection.createStatement()) {
-            st.execute("CREATE SEQUENCE IF NOT EXISTS items_id_seq;\n"
-                    + "CREATE TABLE IF NOT EXISTS items (id text PRIMARY KEY DEFAULT nextval('items_id_seq')::text, name varchar(50) NOT NULL)");
+            st.execute("CREATE TABLE IF NOT EXISTS items (id serial PRIMARY KEY, name varchar(50) NOT NULL)");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -46,7 +45,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
             st.executeUpdate();
             try (ResultSet key = st.getGeneratedKeys()) {
                 if (key.next()) {
-                    item.setId(key.getString(1));
+                    item.setId(String.valueOf(key.getInt(1)));
                     return item;
                 }
             } catch (SQLException ex) {
@@ -64,7 +63,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
         int result = 0;
         try (final PreparedStatement st = connection.prepareStatement("UPDATE items SET name = ? WHERE id = ?")) {
             st.setString(1, item.getName());
-            st.setString(2, id);
+            st.setInt(2, Integer.valueOf(id));
             result = st.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -76,7 +75,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     public boolean delete(String id) {
         int result = 0;
         try (final PreparedStatement st = connection.prepareStatement("DELETE FROM items WHERE id = ?")) {
-            st.setString(1, id);
+            st.setInt(1, Integer.valueOf(id));
             result = st.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -126,7 +125,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     public Item findById(String id) {
         Item item = null;
         try (final PreparedStatement st = connection.prepareStatement("SELECT * FROM items WHERE id = ?")) {
-            st.setString(1, id);
+            st.setInt(1, Integer.valueOf(id));
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 String name = rs.getString(1);
