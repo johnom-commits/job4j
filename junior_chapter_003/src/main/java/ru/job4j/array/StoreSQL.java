@@ -20,37 +20,27 @@ public class StoreSQL implements AutoCloseable {
     }
 
     public void generate(int size) throws SQLException {
-        cleanTable();
+        connect.setAutoCommit(false);
         try (final PreparedStatement st = connect.prepareStatement("INSERT INTO entry (field) VALUES (?)", Statement.NO_GENERATED_KEYS)) {
             for (int i = 1; i <= size; i++) {
                 st.setInt(1, i);
-                st.executeUpdate();
+                st.addBatch();
             }
+            st.executeBatch();
+            connect.commit();
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }
-    }
-
-    private void cleanTable() {
-        try (final Statement st = connect.createStatement()) {
-            ResultSet rs = st.executeQuery("SELECT COUNT(*) FROM entry");
-            if (rs.next()) {
-                if (rs.getInt(1) > 0) {
-                    deleteEntries();
+            if (connect != null) {
+                try {
+                    connect.rollback();
+                } catch (SQLException exp) {
+                    exp.printStackTrace();
                 }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
+        connect.setAutoCommit(true);
     }
 
-    private void deleteEntries() {
-        try (final Statement st = connect.createStatement()) {
-            st.executeUpdate("DELETE FROM entry");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
     public List<Entry> load() {
         List<Entry> list = new ArrayList<>();
 
@@ -92,7 +82,10 @@ public class StoreSQL implements AutoCloseable {
         StoreSQL storeSQL = new StoreSQL(new Config());
         try (Connection con = DriverManager.getConnection(storeSQL.config.get("url"))) {
             try (final Statement st = con.createStatement()) {
-                st.execute("CREATE TABLE IF NOT EXISTS entry (field INTEGER PRIMARY KEY)");
+                String sql = "DROP TABLE IF EXISTS entry;";
+                st.execute(sql);
+                sql = "CREATE TABLE entry (field INTEGER PRIMARY KEY);";
+                st.execute(sql);
                 storeSQL.connect = con;
                 storeSQL.generate(10);
 
