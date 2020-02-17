@@ -1,7 +1,11 @@
 package ru.job4j.tracker;
 
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.function.Consumer;
 
 public class StartUISQL extends StartUI {
@@ -10,10 +14,26 @@ public class StartUISQL extends StartUI {
         super(input, tracker, output);
     }
 
-    public static void main(String[] args) {
+    public static Connection init() {
+        try (InputStream in = TrackerSQL.class.getClassLoader().getResourceAsStream("app.properties")) {
+            Properties config = new Properties();
+            config.load(in);
+            Class.forName(config.getProperty("driver-class-name"));
+            return DriverManager.getConnection(
+                    config.getProperty("url"),
+                    config.getProperty("username"),
+                    config.getProperty("password")
+
+            );
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
         Input input = new ConsoleInput();
         Input validate = new ValidateInput(input);
-        try (ITracker tracker = new TrackerSQL()) {
+        try (ITracker tracker = new TrackerSQL(init())) {
             List<UserAction> actions = new ArrayList<UserAction>();
             actions.add(new CreateAction(0, "Add a new item"));
             actions.add(new FindAllAction(1, "Show all items"));

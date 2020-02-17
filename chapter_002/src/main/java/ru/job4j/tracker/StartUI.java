@@ -33,7 +33,7 @@ public class StartUI {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Input input = new ConsoleInput();
         Input validate = new ValidateInput(input);
         ITracker tracker = new Tracker();

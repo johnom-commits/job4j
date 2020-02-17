@@ -1,33 +1,15 @@
 package ru.job4j.tracker;
 
-import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 public class TrackerSQL implements ITracker, AutoCloseable {
     private Connection connection;
 
-    public TrackerSQL() {
-        init();
-    }
-
-    public boolean init() {
-        try (InputStream in = TrackerSQL.class.getClassLoader().getResourceAsStream("app.properties")) {
-            Properties config = new Properties();
-            config.load(in);
-            Class.forName(config.getProperty("driver-class-name"));
-            connection = DriverManager.getConnection(
-                    config.getProperty("url"),
-                    config.getProperty("username"),
-                    config.getProperty("password")
-            );
-            initTablesDB();
-        } catch (Exception e) {
-            throw new IllegalStateException(e);
-        }
-        return connection != null;
+    public TrackerSQL(Connection con) {
+        connection = con;
+        initTablesDB();
     }
 
     private void initTablesDB() {
@@ -45,13 +27,13 @@ public class TrackerSQL implements ITracker, AutoCloseable {
             st.executeUpdate();
             try (ResultSet key = st.getGeneratedKeys()) {
                 if (key.next()) {
-                    item.setId(String.valueOf(key.getInt(1)));
+                    int keyValue = key.getInt(1);
+                    item.setId(String.valueOf(keyValue));
                     return item;
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
