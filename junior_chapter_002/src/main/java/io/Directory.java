@@ -1,16 +1,14 @@
 package io;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.util.Stack;
+import java.util.concurrent.atomic.AtomicReference;
 
 class Shell {
-    private String currentDir;
-    private String separator = "/";
+    private Stack<String> stack = new Stack<>();
 
-    public Shell(String currentDir) {
-        this.currentDir = currentDir;
+    public Shell(String dir) {
+        stack.push(dir);
     }
 
     public Shell cd(final String path) throws IOException {
@@ -18,46 +16,45 @@ class Shell {
             throw new IOException("Должен быть указан путь к каталогу или ..");
         }
 
-        String newDir = "";
-        String slash = "";
         if ("..".equals(path)) {
-            int index = currentDir.lastIndexOf(separator); // заменить на функцию
-            newDir = currentDir.substring(0, index);
-        } else if ("./".equals(path)) {
-            newDir = currentDir;
+            stack.pop();
+            if (stack.size() > 1) {
+                stack.pop();
+            }
+        } else if ("./".equals(path) || path.startsWith("../")) {
         } else if ("/".equals(path)) {
-            newDir = "/";
-        } else if (path.startsWith("../")) {
-            int index = currentDir.lastIndexOf(separator);
-            newDir = currentDir.substring(0, index);
-            index = path.lastIndexOf(separator);
-            newDir = newDir + path.substring(index);
+            stack.clear();
+            stack.push(path);
+        } else if (path.endsWith("/..")) {
+            if (stack.size() > 2) {
+                stack.pop();
+                stack.pop();
+            } else {
+                stack.clear();
+                stack.push("/");
+            }
         } else if (path.startsWith("//")) {
             if (path.endsWith("///")) {
-                newDir = path.substring(1, path.length() - 3);
+                stack.clear();
+                stack.push("/");
+                stack.push(path.substring(2, 5));
             } else {
-                newDir = path.substring(1);
-            }
-        } else if (path.endsWith("/..")) {
-            newDir = path.substring(0, path.length() - 3);
-            if (newDir.contains(separator)) {
-                int index = newDir.lastIndexOf(separator);
-                newDir = newDir.substring(0, index);
-            } else {
-                newDir = separator;
+                stack.clear();
+                stack.push("/");
             }
         } else {
-            if (!currentDir.endsWith(separator)) {
-                slash = separator;
+            if (!stack.peek().equals("/")) {
+                stack.push("/");
             }
-            newDir = String.join(slash, currentDir, path);
+            stack.push(path);
         }
-        currentDir = newDir;
         return this;
     }
 
     public String path() {
-        return currentDir;
+        AtomicReference<String> dir = new AtomicReference<>("");
+        stack.stream().forEach(e -> dir.set(dir + e));
+        return dir.get();
     }
 }
 
