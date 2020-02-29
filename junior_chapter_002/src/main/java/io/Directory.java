@@ -21,7 +21,6 @@ class Shell {
             if (stack.size() > 1) {
                 stack.pop();
             }
-        } else if ("./".equals(path) || path.startsWith("../")) {
         } else if ("/".equals(path)) {
             stack.clear();
             stack.push(path);
@@ -42,7 +41,7 @@ class Shell {
                 stack.clear();
                 stack.push("/");
             }
-        } else {
+        } else if ((!path.contains("/")) && (!path.contains(".")) && (!path.contains(".."))) {
             if (!stack.peek().equals("/")) {
                 stack.push("/");
             }
