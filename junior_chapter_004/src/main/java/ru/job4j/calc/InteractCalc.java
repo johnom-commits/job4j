@@ -17,8 +17,8 @@ public class InteractCalc {
         double num2 = 0;
         char operation;
 
-        while (!enter.equals("e")) {
-            if (enter.equals("b")) {
+        while (!"e".equals(enter)) {
+            if ("b".equals(enter)) {
                 num1 = getDouble();
                 num2 = getDouble();
                 operation = getOperation();
