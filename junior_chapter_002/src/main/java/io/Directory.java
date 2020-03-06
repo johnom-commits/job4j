@@ -1,14 +1,76 @@
 package io;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.BiConsumer;
 
 class Shell {
     private Stack<String> stack = new Stack<>();
+    private final Map<String, BiConsumer<Stack<String>, String>> map = new HashMap<>();
 
     public Shell(String dir) {
         stack.push(dir);
+    }
+
+    private BiConsumer<Stack<String>, String> act2() {
+        return (st, path) -> {
+            st.pop();
+            if (st.size() > 1) {
+                st.pop();
+            }
+        };
+    }
+
+    private BiConsumer<Stack<String>, String> act3() {
+        return (st, path) -> {
+            st.clear();
+            st.push(path);
+        };
+    }
+
+    private BiConsumer<Stack<String>, String> act4() {
+        return (st, path) -> {
+            if (st.size() > 2) {
+                st.pop();
+                st.pop();
+            } else {
+                st.clear();
+                st.push("/");
+            }
+        };
+    }
+
+    private BiConsumer<Stack<String>, String> act5() {
+        return (st, path) -> {
+            if (path.endsWith("///")) {
+                st.clear();
+                st.push("/");
+                st.push(path.substring(2, 5));
+            } else {
+                st.clear();
+                st.push("/");
+            }
+        };
+    }
+
+    private BiConsumer<Stack<String>, String> act6() {
+        return (st, path) -> {
+            if (!st.peek().equals("/")) {
+                st.push("/");
+            }
+            st.push(path);
+        };
+    }
+
+    private void init() {
+        map.put("..", act2());
+        map.put("/", act3());
+        map.put("end/..", act4());
+        map.put("start//", act5());
+        map.put("zzz", act6());
     }
 
     public Shell cd(final String path) throws IOException {
@@ -16,36 +78,18 @@ class Shell {
             throw new IOException("Должен быть указан путь к каталогу или ..");
         }
 
-        if ("..".equals(path)) {
-            stack.pop();
-            if (stack.size() > 1) {
-                stack.pop();
-            }
-        } else if ("/".equals(path)) {
-            stack.clear();
-            stack.push(path);
-        } else if (path.endsWith("/..")) {
-            if (stack.size() > 2) {
-                stack.pop();
-                stack.pop();
-            } else {
-                stack.clear();
-                stack.push("/");
-            }
+        init();
+        String key = path;
+        if (path.endsWith("/..")) {
+            key = "end/..";
         } else if (path.startsWith("//")) {
-            if (path.endsWith("///")) {
-                stack.clear();
-                stack.push("/");
-                stack.push(path.substring(2, 5));
-            } else {
-                stack.clear();
-                stack.push("/");
-            }
+            key = "start//";
         } else if ((!path.contains("/")) && (!path.contains(".")) && (!path.contains(".."))) {
-            if (!stack.peek().equals("/")) {
-                stack.push("/");
-            }
-            stack.push(path);
+            key = "zzz";
+        }
+        BiConsumer<Stack<String>, String> consumer = map.get(key);
+        if (consumer != null) {
+            consumer.accept(stack, path);
         }
         return this;
     }
