@@ -6,7 +6,7 @@ import java.util.function.Predicate;
  * Report for accounting departament
  */
 public class ReportEngineAccount {
-    private final double WITHOUT_TAX = 0.87D;
+    private final double wITHOUTTAX = 0.87D;
     private Store store;
 
     public ReportEngineAccount(Store store) {
@@ -28,6 +28,6 @@ public class ReportEngineAccount {
     }
 
     private double getWithoutTax(double salary) {
-        return salary * WITHOUT_TAX;
+        return salary * wITHOUTTAX;
     }
 }

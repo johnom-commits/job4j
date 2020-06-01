@@ -1,6 +1,6 @@
 package ru.job4j.menu;
 
-public class doSomething implements IMenuAction {
+public class DoSomething implements IMenuAction {
 
     @Override
     public void execute() {
