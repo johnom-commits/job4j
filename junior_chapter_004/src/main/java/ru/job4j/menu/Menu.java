@@ -52,13 +52,14 @@ public class Menu {
 
     private InterItem findItems(InterItem item, String header) {
         InterItem result = null;
-        if (item.getItemIn() != null) {
-            for (InterItem item1 : item.getItemIn()) {
+        List<InterItem> items = item.getItemIn();
+        if (items != null) {
+            for (InterItem item1 : items) {
                 if (header.equals(item1.getHeader())) {
                     result = item1;
                     break;
                 }
-                findItems(item1, header);
+                result = findItems(item1, header);
             }
         }
         return result;
