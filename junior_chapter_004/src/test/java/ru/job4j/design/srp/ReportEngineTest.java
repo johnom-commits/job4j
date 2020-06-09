@@ -70,7 +70,6 @@ public class ReportEngineTest {
         Employer worker = new Employer("Petrov", now, now, 200);
         store.add(worker);
         ReportEngineIT engine = new ReportEngineIT(store);
-//        System.out.println(engine.generate(em -> true));
         StringBuilder expect = new StringBuilder()
                 .append("<p>Name; Hired; Fired; Salary</p>")
                 .append(System.lineSeparator())
@@ -80,6 +79,56 @@ public class ReportEngineTest {
                 .append(worker.getFired()).append(";")
                 .append(worker.getSalary()).append(";")
                 .append("</p>")
+                .append(System.lineSeparator());
+        assertEquals(expect.toString(), engine.generate(em -> true));
+    }
+
+    @Test
+    public void whenGeneratedReportXML() {
+        Calendar now = Calendar.getInstance();
+        MemStore store = new MemStore();
+        Employer worker = new Employer("Petrov", now, now, 200);
+        store.add(worker);
+        ReportEngineXML engine = new ReportEngineXML(store);
+        StringBuilder expect = new StringBuilder()
+                .append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
+                .append(System.lineSeparator())
+                .append("<report>")
+                .append(System.lineSeparator())
+                .append("<title>Name; Hired; Fired; Salary</title>")
+                .append(System.lineSeparator())
+                .append("<line>")
+                .append(worker.getName()).append(";")
+                .append(worker.getHired()).append(";")
+                .append(worker.getFired()).append(";")
+                .append(worker.getSalary()).append(";")
+                .append("</line>")
+                .append(System.lineSeparator())
+                .append("</report>")
+                .append(System.lineSeparator());
+        assertEquals(expect.toString(), engine.generate(em -> true));
+    }
+
+    @Test
+    public void whenGeneratedReportJSON() {
+        Calendar now = Calendar.getInstance();
+        MemStore store = new MemStore();
+        Employer worker = new Employer("Petrov", now, now, 200);
+        store.add(worker);
+        ReportEngineJSON engine = new ReportEngineJSON(store);
+        StringBuilder expect = new StringBuilder()
+                .append("{")
+                .append(System.lineSeparator())
+                .append("\"title\": \"Name; Hired; Fired; Salary\",")
+                .append(System.lineSeparator())
+                .append("\"line\": ")
+                .append("\"")
+                .append(worker.getName()).append(";")
+                .append(worker.getHired()).append(";")
+                .append(worker.getFired()).append(";")
+                .append(worker.getSalary()).append("\"")
+                .append(System.lineSeparator())
+                .append("}")
                 .append(System.lineSeparator());
         assertEquals(expect.toString(), engine.generate(em -> true));
     }
