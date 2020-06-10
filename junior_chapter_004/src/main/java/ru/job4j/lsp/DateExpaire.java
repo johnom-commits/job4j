@@ -5,4 +5,8 @@ public class DateExpaire implements ControlQuality {
     public String getName() {
         return "DateExpaire";
     }
+
+    @Override
+    public void resort() {
+    }
 }

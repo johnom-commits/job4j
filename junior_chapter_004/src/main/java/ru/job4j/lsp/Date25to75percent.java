@@ -5,4 +5,8 @@ public class Date25to75percent implements ControlQuality {
     public String getName() {
         return "Date25to75percent";
     }
+
+    @Override
+    public void resort() {
+    }
 }

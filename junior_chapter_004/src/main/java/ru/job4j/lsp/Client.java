@@ -1,9 +1,12 @@
 package ru.job4j.lsp;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import static java.util.stream.Collectors.toList;
+import static ru.job4j.lsp.StorageLib.defineStorage;
 
 public class Client {
     private static final double DISCOUNT = 30;
@@ -12,14 +15,7 @@ public class Client {
         LocalDate dataCreate;
         LocalDate dataExpaire;
         ControlQuality quality;
-        Storage shop = new Shop();
-        Storage warehouse = new Warehouse();
-        Storage trash = new Trash();
-        Map<String, Storage> storageMap = new HashMap<>();
-        storageMap.put("DateMore75percent", shop);
-        storageMap.put("Date25to75percent", shop);
-        storageMap.put("Date25percent", warehouse);
-        storageMap.put("DateExpaire", trash);
+        Map<String, Storage> storageMap = StorageLib.getStorageMap();
 
         Map<String, Double> discountMap = new HashMap<>();
         discountMap.put("DateMore75percent", 0D);
@@ -27,55 +23,36 @@ public class Client {
         discountMap.put("Date25percent", DISCOUNT);
         discountMap.put("DateExpaire", 0D);
 
-        dataCreate = LocalDate.of(2020, 1, 20);
-        dataExpaire = LocalDate.of(2020, 3, 20);
+        dataCreate = LocalDate.of(2020, 5, 20);
+        dataExpaire = LocalDate.of(2020, 8, 20);
         quality = defineStorage(dataCreate, dataExpaire);
         IFood milk = new Milk("A house in village", dataExpaire, dataCreate, 50, discountMap.get(quality.getName()));
         milk.setQuality(quality);
         milk.executeSort(storageMap.get(quality.getName()));
 
         dataCreate = LocalDate.of(2019, 9, 20);
-        dataExpaire = LocalDate.of(2020, 2, 20);
+        dataExpaire = LocalDate.of(2020, 7, 20);
         quality = defineStorage(dataCreate, dataExpaire);
-        IFood apple = new Apple("Antonovka", dataCreate, dataExpaire, 100, discountMap.get(quality.getName()));
+        IFood apple = new Apple("Antonovka", dataExpaire, dataCreate, 100, discountMap.get(quality.getName()));
         apple.setQuality(quality);
         apple.executeSort(storageMap.get(quality.getName()));
 
         dataCreate = LocalDate.of(2019, 12, 20);
-        dataExpaire = LocalDate.of(2020, 12, 20);
+        dataExpaire = LocalDate.of(2020, 05, 20);
         quality = defineStorage(dataCreate, dataExpaire);
-        IFood chocolate = new Chocolate("Alenka", dataCreate, dataExpaire, 80, discountMap.get(quality.getName()));
+        IFood chocolate = new Chocolate("Alenka", dataExpaire, dataCreate, 80, discountMap.get(quality.getName()));
         chocolate.setQuality(quality);
         chocolate.executeSort(storageMap.get(quality.getName()));
 
-        dataCreate = LocalDate.of(2020, 02, 27);
-        dataExpaire = LocalDate.of(2020, 03, 10);
+        dataCreate = LocalDate.of(2020, 05, 27);
+        dataExpaire = LocalDate.of(2020, 06, 20);
         quality = defineStorage(dataCreate, dataExpaire);
-        IFood cake = new Cake("Kartoshka", dataCreate, dataExpaire, 150, discountMap.get(quality.getName()));
+        IFood cake = new Cake("Kartoshka", dataExpaire, dataCreate, 150, discountMap.get(quality.getName()));
         cake.setQuality(quality);
         cake.executeSort(storageMap.get(quality.getName()));
-    }
 
-    private static ControlQuality defineStorage(LocalDate dataCreate, LocalDate dataExpaire) {
-        ControlQuality quality;
-
-        LocalDate today = LocalDate.now();
-        long storagePeriod = ChronoUnit.DAYS.between(dataCreate, dataExpaire);
-        long lastPeriod = ChronoUnit.DAYS.between(dataCreate, today);
-
-        if (storagePeriod == 0) {
-            throw new ArithmeticException("division by zero");
-        }
-        double percExpaire = lastPeriod * 100d / storagePeriod;
-        if (percExpaire >= 75d & percExpaire <= 100) {
-            quality = new DateMore75percent();
-        } else if (percExpaire < 75d & percExpaire >= 25d) {
-            quality = new Date25to75percent();
-        } else if (percExpaire < 25d & percExpaire > 0d) {
-            quality = new Date25percent();
-        } else {
-            quality = new DateExpaire();
-        }
-        return quality;
+        List<Storage> storageList = storageMap.values().stream().distinct().collect(toList());
+        ControlQuality resortFood = new ResortFood(storageList);
+        resortFood.resort();
     }
 }

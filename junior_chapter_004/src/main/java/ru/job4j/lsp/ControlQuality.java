@@ -6,4 +6,6 @@ public interface ControlQuality {
     }
 
     String getName();
+
+    void resort();
 }

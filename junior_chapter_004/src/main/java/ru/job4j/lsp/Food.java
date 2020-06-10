@@ -25,4 +25,12 @@ public class Food implements IFood {
     public void executeSort(Storage storage) {
         quality.sort(this, storage);
     }
+
+    public LocalDate getExpaireDate() {
+        return expaireDate;
+    }
+
+    public LocalDate getCreateDate() {
+        return createDate;
+    }
 }
