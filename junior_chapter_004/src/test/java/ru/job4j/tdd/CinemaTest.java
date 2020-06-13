@@ -34,7 +34,7 @@ public class CinemaTest {
 
     // при покупке билета любитель синематографа не выбрал места
     @Ignore
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void whenBuyWithoutPlaces() {
         Account account = new AccountCinema();
         Cinema cinema = new Cinema3D();
@@ -45,7 +45,7 @@ public class CinemaTest {
 
     // пользователь не нашёл нужный сеанс
     @Ignore
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void whenDoNotFoundSession() {
         Cinema cinema = new Cinema3D();
         cinema.add(new Session3D());
@@ -54,7 +54,7 @@ public class CinemaTest {
 
     // когда пользователь указал неправильную дату
     @Ignore
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void whenSetWrongDate() {
         Account account = new AccountCinema();
         Cinema cinema = new Cinema3D();
