@@ -71,6 +71,7 @@
 -- WHERE id_status = 1
 -- GROUP BY meetings.name;
 
+-- INSERT INTO meetings (name) VALUES ('Обсуждение вопроса, есть ли жизнь на Марсе');
 -- -- 3. Нужно получить все совещания, где не было ни одной заявки на посещения
 
 SELECT meetings.name
@@ -80,7 +81,6 @@ FROM meetings
 EXCEPT
 SELECT id_meeting
 FROM applications
-WHERE id_status = 1
-GROUP BY id_meeting) AS result
+WHERE id_status = 1) AS result
 JOIN meetings ON result.id = meetings.id
 
