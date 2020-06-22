@@ -1,8 +1,6 @@
 package ru.job4j.tiktaktoe;
 
-import java.util.Arrays;
 import java.util.Scanner;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class TicTakToe {
 
@@ -19,9 +17,9 @@ public class TicTakToe {
 
     private static ISize showMenu(Scanner scan) {
         Menu menu = new Menu();
-        menu.add(new ItemSize(1, "[3 x 3]", new FieldSize3()));
-        menu.add(new ItemSize(2, "[4 x 4]", new FieldSize4()));
-        menu.add(new ItemSize(3, "[5 x 5]", new FieldSize5()));
+        menu.add(new ItemSize(1, "[3 x 3]", new FieldSize(3)));
+        menu.add(new ItemSize(2, "[4 x 4]", new FieldSize(4)));
+        menu.add(new ItemSize(3, "[5 x 5]", new FieldSize(5)));
         menu.show();
         System.out.println("Выберите размерность игры (номер пункта):");
         ISize fieldSize = null;
